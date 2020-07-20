@@ -24,5 +24,26 @@ def test_is_airport_full_default_capacity_5(airport):
 
 def test_add_plane_object_to_terminals(airport):
     stub_plane = Mock(Plane)
-    airport.add_plane_to_terminal(stub_plane)
+    airport.add_plane_to_terminals(stub_plane)
     assert stub_plane in airport._terminals
+
+def test_add_3_plane_object_to_terminals(airport):
+    stub_plane1 = Mock(Plane)
+    stub_plane2 = Mock(Plane)
+    stub_plane3 = Mock(Plane)    
+    airport.add_plane_to_terminals(stub_plane1)
+    airport.add_plane_to_terminals(stub_plane2)
+    airport.add_plane_to_terminals(stub_plane3)
+    assert len(airport._terminals) == 3
+
+def test_remove_plane_object_from_terminals(airport):
+    stub_plane = Mock(Plane)
+    airport.add_plane_to_terminals(stub_plane)
+    airport.remove_plane_from_terminals(stub_plane)
+    assert stub_plane not in airport._terminals
+
+def test_remove_absent_plane_object_from_terminals(airport):
+    with pytest.raises(ValueError, match='Plane not at airport') as e:
+        stub_plane = Mock(Plane)
+        airport.remove_plane_from_terminals(stub_plane)
+    assert e.type is ValueError
