@@ -45,3 +45,6 @@ def test_not_takeoff_when_weather_is_stormy(plane):
         stub_weather.check_state.return_value = 'Stormy'
         plane.set_to_takeoff(stub_weather)
     assert e.type is ValueError
+
+#def test_landing_plane_assinged_to_airport(plane):
+    
