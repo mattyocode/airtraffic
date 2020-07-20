@@ -16,12 +16,10 @@ stub_weather = Mock(Weather)
 
 def test_plane_land_instruction_1(plane):
     stub_airport.is_full.return_value = False
-    plane.set_to_land(stub_airport)
-    assert plane._status == 'Landed'
+    assert plane.set_to_land(stub_airport, stub_weather) == 'Landed'
 
 def test_plane_takeoff_instruction_2(plane):
-    plane.set_to_takeoff()
-    assert plane._status == 'Flying'
+    assert plane.set_to_takeoff(stub_weather) == 'Flying'
 
 def test_not_land_when_airport_full_6(plane):
     with pytest.raises(ValueError, match='Airport is full!') as e:
@@ -30,8 +28,20 @@ def test_not_land_when_airport_full_6(plane):
     assert e.type is ValueError
 
 def test_not_land_when_weather_is_stormy(plane):
-    with pytest.raises(ValueError, match='Weather is stormy')
+    with pytest.raises(ValueError, match='Weather is stormy') as e:
         stub_airport.is_full.return_value = False
         stub_weather.check_state.return_value = 'Stormy'
         plane.set_to_land(stub_airport, stub_weather)
+    assert e.type is ValueError
 
+def test_land_when_weather_is_sunny(plane):
+    stub_airport.is_full.return_value = False
+    stub_weather.check_state.return_value = 'Sunny'
+    assert plane.set_to_land(stub_airport, stub_weather) == 'Landed'
+
+def test_not_takeoff_when_weather_is_stormy(plane):
+    with pytest.raises(ValueError, match='Weather is stormy') as e:
+        stub_airport.is_full.return_value = False
+        stub_weather.check_state.return_value = 'Stormy'
+        plane.set_to_takeoff(stub_weather)
+    assert e.type is ValueError
