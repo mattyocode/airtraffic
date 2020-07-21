@@ -1,14 +1,17 @@
 class Airport():
 
     def __init__(self, location='TBC', capacity=5):
-        self.location = location
-        self.capacity = capacity
+        self._location = location
+        self._capacity = capacity
         self._terminals = []
+
+    def get_location(self, location):
+        return self._location
 
     def add_plane_to_terminals(self, plane):
         if not self.is_full():
             self._terminals.append(plane)
-        else:
+        else: 
             raise ValueError('Airport is full!')
 
     def remove_plane_from_terminals(self, plane):
@@ -21,7 +24,8 @@ class Airport():
         return plane in self._terminals
 
     def is_full(self):
-        return len(self._terminals) >= self.capacity
+        return len(self._terminals) >= self._capacity
 
     def empty_terminals(self):
         self._terminals = []
+
