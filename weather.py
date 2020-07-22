@@ -16,3 +16,6 @@ class Weather():
     def check_state(self):
         self.set_state()
         return self.current_state
+
+    def clear(self):
+        self.current_state = None

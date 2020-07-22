@@ -18,6 +18,7 @@ def test_plane_land_instruction_1(plane):
     stub_airport.is_full.return_value = False
     assert plane.set_to_land(stub_airport, stub_weather) == 'Landed'
 
+#@pytest.mark.skip('Superceded')
 def test_plane_takeoff_instruction_2(plane):
     stub_airport.get_location.return_value = 'London'
     plane._current_location = 'London'
@@ -48,6 +49,16 @@ def test_not_takeoff_when_weather_is_stormy(plane):
         plane.set_to_takeoff(stub_airport, stub_weather)
     assert e.type is ValueError
 
+
+def test_plane_cannot_takeoff_when_flying(plane):
+    with pytest.raises(ValueError, match='Plane is in flight!') as e:
+        stub_airport.get_location.return_value = 'Madrid'
+        stub_weather.check_state.return_value = 'Sunny'
+        plane._current_location = 'Madrid'
+        plane._status = 'Flying'
+        plane.can_takeoff(stub_airport, stub_weather)
+    assert e.type is ValueError
+
 def test_plane_assinged_to_airport(plane):
     stub_airport.get_location.return_value = 'London'
     stub_airport.is_full.return_value = False
@@ -55,7 +66,7 @@ def test_plane_assinged_to_airport(plane):
     plane.set_to_land(stub_airport, stub_weather)
     assert plane.current_location() == 'London'
 
-def test_plane_cannot_leave_airport_not_at(plane):
+def test_plane_cannot_takeoff_from_airport_not_at(plane):
     with pytest.raises(ValueError, match='Wrong airport') as e:
         stub_airport.get_location.return_value = 'Madrid'
         stub_weather.check_state.return_value = 'Sunny'

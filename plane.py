@@ -27,6 +27,8 @@ class Plane():
             raise ValueError('Weather is stormy')
         elif airport.get_location() != self._current_location:
             raise ValueError('Wrong airport')
+        elif self._status == 'Flying':
+            raise ValueError('Plane is in flight!')
         else:
             return True
 
