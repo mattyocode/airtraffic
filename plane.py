@@ -3,7 +3,8 @@ from weather import Weather
 
 class Plane():
 
-    def __init__(self):
+    def __init__(self, id_num="Not set"):
+        self._id_num = id_num
         self._status = None
         self._current_location = None
 
