@@ -18,9 +18,13 @@ def test_plane_land_instruction_1(plane):
     stub_airport.is_full.return_value = False
     assert plane.set_to_land(stub_airport, stub_weather) == 'Landed'
 
-def test_plane_returns_name_string():
+def test_plane_returns_id_num():
     plane1 = Plane("001")
     assert plane1._id_num == "001"
+
+def test_plane_returns_name_str_():
+    plane1 = Plane("002")
+    assert str(plane1) == "002"
 
 #@pytest.mark.skip('Superceded')
 def test_plane_takeoff_instruction_2(plane):

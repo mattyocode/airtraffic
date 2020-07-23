@@ -8,6 +8,9 @@ class Plane():
         self._status = None
         self._current_location = None
 
+    def __str__(self):
+        return f"{self._id_num}"
+
     def can_land(self, airport, weather):
         if airport.is_full():
             raise ValueError('Airport is full!')
