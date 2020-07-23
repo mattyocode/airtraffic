@@ -47,11 +47,5 @@ def test_remove_absent_plane_object_from_terminals(airport):
         airport.remove_plane_from_terminals(stub_plane)
     assert e.type is ValueError
 
-@pytest.mark.skip('Write plane addition first')
-def test_print_list_of_planes_in_terminal(airport):
-    airport.add_plane_to_terminals(stub_plane)
-    airport.add_plane_to_terminals(stub_plane1)
-    airport.add_plane_to_terminals(stub_plane2)
-    airport.add_plane_to_terminals(stub_plane3)
-    assert airport.get_plane_list() == []
+
     

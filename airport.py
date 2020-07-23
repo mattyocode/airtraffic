@@ -26,6 +26,9 @@ class Airport():
     def is_full(self):
         return len(self._terminals) >= self._capacity
 
+    def get_plane_list(self):
+        return [str(plane) for plane in self._terminals]
+
     def empty_terminals(self):
         self._terminals = []
 
