@@ -5,7 +5,7 @@ class Airport():
         self._capacity = capacity
         self._terminals = []
 
-    def get_location(self, location):
+    def get_location(self):
         return self._location
 
     def add_plane_to_terminals(self, plane):

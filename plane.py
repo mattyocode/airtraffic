@@ -40,10 +40,11 @@ class Plane():
         if self.can_takeoff(airport, weather):
             airport.remove_plane_from_terminals(self)
             self._status = 'Flying'
+            self._current_location = None
             return self._status
 
     def current_location(self):
-        return self._current_location
+        return f'{self._current_location}'
     
     def clear(self):
         self._status = None

@@ -57,7 +57,6 @@ def test_not_takeoff_when_weather_is_stormy(plane):
         plane.set_to_takeoff(stub_airport, stub_weather)
     assert e.type is ValueError
 
-
 def test_plane_cannot_takeoff_when_flying(plane):
     with pytest.raises(ValueError, match='Plane is in flight!') as e:
         stub_airport.get_location.return_value = 'Madrid'
@@ -80,4 +79,13 @@ def test_plane_cannot_takeoff_from_airport_not_at(plane):
         stub_weather.check_state.return_value = 'Sunny'
         plane.can_takeoff(stub_airport, stub_weather)
     assert e.type is ValueError
+
+def test_flying_plane_has_no_airport(plane):
+    plane._current_location = 'London'
+    stub_airport.get_location.return_value = 'London'
+    stub_weather.check_state.return_value = 'Sunny'
+    plane.set_to_takeoff(stub_airport, stub_weather)
+    assert plane._current_location == None
+
+    
     
