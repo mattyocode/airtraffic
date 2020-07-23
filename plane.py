@@ -12,7 +12,9 @@ class Plane():
         return f"{self._id_num}"
 
     def can_land(self, airport, weather):
-        if airport.is_full():
+        if self._status == 'Flying':
+            raise ValueError('Already landed!')
+        elif airport.is_full():
             raise ValueError('Airport is full!')
         elif weather.check_state() == 'Stormy':
             raise ValueError('Weather is stormy')
