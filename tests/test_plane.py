@@ -26,12 +26,6 @@ def test_plane_returns_name_str_():
     plane1 = Plane("002")
     assert str(plane1) == "002"
 
-#@pytest.mark.skip('Superceded')
-def test_plane_takeoff_instruction(plane):
-    stub_airport.get_location.return_value = 'London'
-    plane._current_location = 'London'
-    assert plane.set_to_takeoff(stub_airport, stub_weather) == 'Flying'
-
 def test_not_land_when_airport_full(plane):
     with pytest.raises(ValueError, match='Airport is full!') as e:
         stub_airport.is_full.return_value = True
@@ -51,7 +45,7 @@ def test_landed_plane_has_airport(plane):
     plane.set_to_land(stub_airport, stub_weather)
     assert plane.current_location() == 'London' 
 
-def test_not_land_when_weather_is_stormy(plane):
+def test_cannot_land_when_weather_is_stormy(plane):
     with pytest.raises(ValueError, match='Weather is stormy') as e:
         stub_airport.is_full.return_value = False
         stub_weather.check_state.return_value = 'Stormy'

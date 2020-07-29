@@ -12,19 +12,21 @@ def airport():
 stub_plane = Mock(Plane)
 stub_plane1 = Mock(Plane)
 stub_plane2 = Mock(Plane)
-stub_plane3 = Mock(Plane)  
+stub_plane3 = Mock(Plane)
 
-def test_plane_not_at_airport_3(airport):
-    assert airport.plane_in_terminals(1) == False
+def test_airport_returns_location(airport):
+    airport._location = 'Sydney'
+    assert airport.get_location() == 'Sydney'
 
-def test_plane_is_at_airport_4(airport):
-    print(airport._terminals)
-    airport._terminals = [1]
-    assert airport.plane_in_terminals(1) == True
+def test_plane_not_at_airport(airport):
+    assert airport.plane_in_terminals('001') == False
+
+def test_plane_is_at_airport(airport):
+    airport._terminals = ['001']
+    assert airport.plane_in_terminals('001') == True
 
 def test_is_airport_full_default_capacity_5(airport):
-    print(airport._terminals)
-    airport._terminals = [1, 2, 3, 4, 5]
+    airport._terminals = ['001', '002', '003', '004', '005']
     assert airport.is_full() == True
 
 def test_add_plane_object_to_terminals(airport):
