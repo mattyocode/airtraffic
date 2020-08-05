@@ -15,17 +15,29 @@ class Plane():
         '''Returns id number for plane instance'''
         return f"{self._id_num}"
 
+    def is_flying(self):
+        if self._status == 'Landed':
+            raise ValueError('Already landed!')
+        else:
+            return True
+
+    def space_at_airport(self, airport):
+        if airport.is_full():
+            raise ValueError('Airport is full!')
+        else:
+            return True
+
+    def weather_is_sunny(self, weather):
+        if weather.check_state() == 'Stormy':
+            raise ValueError('Weather is stormy')
+        else:
+            return True
+
     def can_land(self, airport, weather):
         '''Checks that plane is flying, weather is \
             sunnyu and there is free terminal space \
             to allow plane to land'''
-        if self._status == 'Flying':
-            raise ValueError('Already landed!')
-        elif airport.is_full():
-            raise ValueError('Airport is full!')
-        elif weather.check_state() == 'Stormy':
-            raise ValueError('Weather is stormy')
-        else:
+        if self.is_flying() and self.space_at_airport(airport) and self.weather_is_sunny(weather):
             return True
 
     def set_to_land(self, airport, weather):

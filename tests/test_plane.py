@@ -34,7 +34,7 @@ def test_not_land_when_airport_full(plane):
 
 def test_not_land_when_already_landed(plane):
     with pytest.raises(ValueError, match='Already landed!') as e:
-        plane._status = 'Flying'
+        plane._status = 'Landed'
         plane.set_to_land(stub_airport, stub_weather)
     assert e.type is ValueError
 
