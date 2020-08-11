@@ -10,9 +10,9 @@ def airport():
     airport.empty_terminals
 
 stub_plane = Mock(Plane)
-stub_plane1 = Mock(Plane)
-stub_plane2 = Mock(Plane)
-stub_plane3 = Mock(Plane)
+stub_plane1 = Mock(Plane('001'))
+stub_plane2 = Mock(Plane('002'))
+stub_plane3 = Mock(Plane('003'))
 
 def test_airport_returns_location(airport):
     airport._location = 'Sydney'
@@ -33,11 +33,11 @@ def test_add_plane_object_to_terminals(airport):
     airport.add_plane_to_terminals(stub_plane)
     assert stub_plane in airport._terminals
 
-def test_add_3_plane_object_to_terminals(airport):  
+def test_add_3_plane_objects_to_terminals(airport):
     airport.add_plane_to_terminals(stub_plane1)
     airport.add_plane_to_terminals(stub_plane2)
     airport.add_plane_to_terminals(stub_plane3)
-    assert len(airport._terminals) == 3
+    assert airport.get_plane_list() == ['001', '002', '003']
 
 def test_remove_plane_object_from_terminals(airport):
     airport.add_plane_to_terminals(stub_plane)
