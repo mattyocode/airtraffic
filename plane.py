@@ -16,18 +16,21 @@ class Plane():
         return f"{self._id_num}"
 
     def is_flying(self):
+        '''Checks plane is in flight before landing'''
         if self._status == 'Landed':
             raise ValueError('Already landed!')
         else:
             return True
 
     def space_at_airport(self, airport):
+        '''Checks the airport terminal isn't full'''
         if airport.is_full():
             raise ValueError('Airport is full!')
         else:
             return True
 
     def weather_is_sunny(self, weather):
+        '''Checks weather is sunny and not stormy'''
         if weather.check_state() == 'Stormy':
             raise ValueError('Weather is stormy')
         else:
@@ -35,9 +38,10 @@ class Plane():
 
     def can_land(self, airport, weather):
         '''Checks that plane is flying, weather is \
-            sunnyu and there is free terminal space \
+            sunny and there is free terminal space \
             to allow plane to land'''
-        if self.is_flying() and self.space_at_airport(airport) and self.weather_is_sunny(weather):
+        if self.is_flying() and self.space_at_airport(airport) \
+            and self.weather_is_sunny(weather):
             return True
 
     def set_to_land(self, airport, weather):
@@ -50,17 +54,27 @@ class Plane():
             self._current_location = airport.get_location()
             return self._status
 
+    def is_correct_leaving_airport(self, airport):
+        '''Checks plane is trying to take off from \
+            airport it is at'''
+        if airport.get_location() != self._current_location:
+            raise ValueError('Wrong airport')
+        else:
+            return True
+
+    def check_plane_not_in_flight(self):
+        '''Checks plane is not flying so can take off'''
+        if self._status == 'Flying':
+            raise ValueError('Plane is in flight!')
+        else:
+            return True
+
     def can_takeoff(self, airport, weather):
         '''Checks if weather is stormy, the plane is \
             in the correct airport, and isn't already \
                 flying before take off'''
-        if weather.check_state() == 'Stormy':
-            raise ValueError('Weather is stormy')
-        elif airport.get_location() != self._current_location:
-            raise ValueError('Wrong airport')
-        elif self._status == 'Flying':
-            raise ValueError('Plane is in flight!')
-        else:
+        if self.weather_is_sunny(weather) and self.is_correct_leaving_airport(airport) \
+            and self.check_plane_not_in_flight():
             return True
 
     def set_to_takeoff(self, airport, weather):

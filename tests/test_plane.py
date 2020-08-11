@@ -59,8 +59,9 @@ def test_land_when_weather_is_sunny(plane):
 
 def test_not_takeoff_when_weather_is_stormy(plane):
     with pytest.raises(ValueError, match='Weather is stormy') as e:
-        stub_airport.is_full.return_value = False
+        stub_airport.get_location.return_value = 'Madrid'
         stub_weather.check_state.return_value = 'Stormy'
+        plane._current_location = 'Madrid'
         plane.set_to_takeoff(stub_airport, stub_weather)
     assert e.type is ValueError
 
