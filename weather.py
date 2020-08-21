@@ -1,6 +1,6 @@
 import random
 
-class Weather():
+class Weather:
     '''A class to return weather condition \
         10% rainy / 90 % sunny'''
     

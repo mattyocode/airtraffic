@@ -1,4 +1,4 @@
-class Airport():
+class Airport:
     '''A class to represent an airport'''
 
     def __init__(self, location='TBC', capacity=5):

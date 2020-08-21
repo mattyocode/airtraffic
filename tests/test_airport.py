@@ -34,9 +34,9 @@ def test_add_plane_object_to_terminals(airport):
     assert stub_plane in airport._terminals
 
 def test_add_3_plane_objects_to_terminals(airport):
-    airport.add_plane_to_terminals(stub_plane1)
-    airport.add_plane_to_terminals(stub_plane2)
-    airport.add_plane_to_terminals(stub_plane3)
+    airport.add_plane_to_terminals('001')
+    airport.add_plane_to_terminals('002')
+    airport.add_plane_to_terminals('003')
     assert airport.get_plane_list() == ['001', '002', '003']
 
 def test_remove_plane_object_from_terminals(airport):

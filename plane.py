@@ -1,7 +1,7 @@
 from airport import Airport
 from weather import Weather
 
-class Plane():
+class Plane:
     '''A class to represent a plane'''
 
     def __init__(self, id_num="Not set"):
